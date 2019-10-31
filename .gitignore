@@ -5,3 +5,6 @@ __pycache__/
 # .devcontainer
 .mypy_cache/
 .venv/
+
+# for secret args
+launch.json
