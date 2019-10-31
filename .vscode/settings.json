@@ -12,7 +12,7 @@
         "editor.detectIndentation": true,
         "editor.tabSize": 4
     },
-    "python.pythonPath": "/root/.pyenv/versions/3.7.2/bin/python",
+    "python.pythonPath": "${workspaceRoot}/.venv/bin/python",
     "python.venvPath": ".venv",
     "python.pipenvPath": "/usr/local/bin/pipenv",
     "python.linting.pylintEnabled": true,
