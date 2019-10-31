@@ -9,3 +9,6 @@ parser.add_argument('-be', '--bitbucket_endpoint', default='https://api.bitbucke
 parser.add_argument('-bo', '--bitbucket_owner', required=True)
 parser.add_argument('-br', '--bitbucket_repo', required=True)
 parser.add_argument('-bt', '--bitbucket_token', required=True)
+
+args = parser.parse_args()
+print(args)
