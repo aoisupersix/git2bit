@@ -12,4 +12,15 @@ def parse():
     parser.add_argument('-br', '--bitbucket_repo', required=True)
     parser.add_argument('-bt', '--bitbucket_token', required=True)
 
-    return parser.parse_args()
+    args = parser.parse_args()
+    args.gitbucket_endpoint = removeTrailingSlash(args.gitbucket_endpoint)
+    args.bitbucket_endpoint = removeTrailingSlash(args.bitbucket_endpoint)
+
+    return args
+
+
+def removeTrailingSlash(str):
+    """
+    URL末尾にスラッシュがあった場合に削除します。
+    """
+    return str.rstrip('/')
