@@ -1,3 +1,3 @@
-import lib.argumentParser as parser
+from lib import argumentParser as parser
 
 args = parser.parse()
