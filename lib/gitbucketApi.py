@@ -13,7 +13,10 @@ class GitbucketApi:
         return f'{self.endpoint}/api/v3/repos/{self.owner}/{self.repo}/issues'
 
     def getIssues(self, pageNum):
-        response = request.getRequestWithToken(f'{self.listIssuesUrl}?page={pageNum}', self.token)
+        payload = {
+            'page': pageNum
+        }
+        response = request.getRequestWithToken(f'{self.listIssuesUrl}', self.token, payload)
         issues = response.json()
         return issues
 
