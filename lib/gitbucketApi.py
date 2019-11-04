@@ -12,7 +12,7 @@ class GitbucketApi:
     def listIssuesUrl(self):
         return f'{self.endpoint}/api/v3/repos/{self.owner}/{self.repo}/issues'
 
-    def getIssues(self, pageNum, state='open'):
+    def getIssuesPerPage(self, pageNum, state='open'):
         """
         Issueを1ページ分取得します
         """
@@ -28,7 +28,7 @@ class GitbucketApi:
         pageNum = 1
         allIssues = []
         while True:
-            issues = self.getIssues(pageNum)
+            issues = self.getIssuesPerPage(pageNum)
             if not issues:
                 break
             allIssues.extend(issues)
