@@ -8,4 +8,4 @@ gitbucket = gitbucketApi.GitbucketApi(
     args.gitbucket_repo,
     args.gitbucket_token
 )
-gitbucket.getIssues()
+gitbucket.getAllIssues()

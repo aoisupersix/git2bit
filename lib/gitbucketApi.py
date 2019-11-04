@@ -16,3 +16,15 @@ class GitbucketApi:
         response = request.getRequestWithToken(f'{self.listIssuesUrl}?page={pageNum}', self.token)
         issues = response.json()
         return issues
+
+    def getAllIssues(self):
+        pageNum = 1
+        allIssues = []
+        while True:
+            issues = self.getIssues(pageNum)
+            if not issues:
+                break
+            allIssues.extend(issues)
+            pageNum += 1
+
+        return allIssues
