@@ -7,14 +7,9 @@ def parse():
     parser.add_argument('-go', '--gitbucket_owner', required=True)
     parser.add_argument('-gr', '--gitbucket_repo', required=True)
     parser.add_argument('-gt', '--gitbucket_token', required=True)
-    parser.add_argument('-be', '--bitbucket_endpoint', default='https://api.bitbucket.org/2.0')
-    parser.add_argument('-bo', '--bitbucket_owner', required=True)
-    parser.add_argument('-br', '--bitbucket_repo', required=True)
-    parser.add_argument('-bt', '--bitbucket_token', required=True)
 
     args = parser.parse_args()
     args.gitbucket_endpoint = removeTrailingSlash(args.gitbucket_endpoint)
-    args.bitbucket_endpoint = removeTrailingSlash(args.bitbucket_endpoint)
 
     return args
 
