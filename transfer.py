@@ -8,4 +8,5 @@ gitbucket = gitbucketApi.GitbucketApi(
     args.gitbucket_repo,
     args.gitbucket_token
 )
-gitbucket.getAllIssues()
+
+issues = sorted(gitbucket.getAllIssues(), key=lambda x: x['number'])  # チケット番号でソート
