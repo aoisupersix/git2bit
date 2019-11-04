@@ -40,6 +40,9 @@ class GitbucketApi:
         return issues
 
     def getAllIssues(self):
-        allIssues = self.getIssues()
-
+        """
+        リポジトリの全Issueを取得します
+        """
+        allIssues = self.getIssues('open')
+        allIssues.extend(self.getIssues('closed'))
         return allIssues
