@@ -24,14 +24,22 @@ class GitbucketApi:
         issues = response.json()
         return issues
 
-    def getAllIssues(self):
+    def getIssues(self, state='open'):
+        """
+        全ページのIssueを取得します
+        """
         pageNum = 1
-        allIssues = []
+        issues = []
         while True:
-            issues = self.getIssuesPerPage(pageNum)
-            if not issues:
+            issuesPerPage = self.getIssuesPerPage(pageNum, state)
+            if not issuesPerPage:
                 break
-            allIssues.extend(issues)
+            issues.extend(issuesPerPage)
             pageNum += 1
+
+        return issues
+
+    def getAllIssues(self):
+        allIssues = self.getIssues()
 
         return allIssues
