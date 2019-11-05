@@ -1,7 +1,7 @@
 import requests
 
 
-def getRequestWithToken(url, token, payload={}):
+def getRequestWithToken(url: str, token: str, payload={}) -> requests.Response:
     """
     引数に与えられたURLに認証トークン付きでGetリクエストを送信し、結果を返します。
     """

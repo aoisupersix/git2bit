@@ -2,17 +2,17 @@ from lib.utils import requestWithToken as request
 
 
 class GitbucketApi:
-    def __init__(self, endpoint, owner, repo, token):
+    def __init__(self, endpoint: str, owner: str, repo: str, token: str) -> None:
         self.endpoint = endpoint
         self.owner = owner
         self.repo = repo
         self.token = token
 
     @property
-    def listIssuesUrl(self):
+    def listIssuesUrl(self) -> str:
         return f'{self.endpoint}/api/v3/repos/{self.owner}/{self.repo}/issues'
 
-    def getIssuesPerPage(self, pageNum, state='open'):
+    def getIssuesPerPage(self, pageNum: int, state='open') -> list:
         """
         Issueを1ページ分取得します
         """
@@ -24,7 +24,7 @@ class GitbucketApi:
         issues = response.json()
         return issues
 
-    def getIssues(self, state='open'):
+    def getIssues(self, state='open') -> list:
         """
         全ページのIssueを取得します
         """
@@ -39,7 +39,7 @@ class GitbucketApi:
 
         return issues
 
-    def getAllIssues(self):
+    def getAllIssues(self) -> list:
         """
         リポジトリの全Issueを取得します
         """

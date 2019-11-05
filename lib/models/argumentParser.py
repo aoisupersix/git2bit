@@ -1,7 +1,7 @@
 import argparse
 
 
-def parse():
+def parse() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description='transfer your gitbucket issues to bitbucket.')
     parser.add_argument('-ge', '--gitbucket_endpoint', required=True)
     parser.add_argument('-go', '--gitbucket_owner', required=True)
@@ -14,7 +14,7 @@ def parse():
     return args
 
 
-def removeTrailingSlash(str):
+def removeTrailingSlash(str: str) -> str:
     """
     URL末尾にスラッシュがあった場合に削除します。
     """
