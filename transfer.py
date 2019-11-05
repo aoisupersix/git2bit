@@ -1,5 +1,5 @@
-from lib import argumentParser as parser
-from lib import gitbucketApi
+from lib.models import argumentParser as parser
+from lib.models import gitbucketApi
 
 args = parser.parse()
 gitbucket = gitbucketApi.GitbucketApi(

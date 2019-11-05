@@ -1,4 +1,4 @@
-from lib import requestWithToken as request
+from lib.utils import requestWithToken as request
 
 
 class GitbucketApi:
