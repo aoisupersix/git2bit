@@ -8,3 +8,6 @@ __pycache__/
 
 # for secret args
 launch.json
+
+# gitbucket download data
+data
