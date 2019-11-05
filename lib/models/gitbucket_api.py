@@ -1,4 +1,4 @@
-from lib.utils import request_with_token as request
+import requests
 
 
 class GitbucketApi:
@@ -8,9 +8,16 @@ class GitbucketApi:
         self.__repo = repo
         self.__token = token
 
-    @property
-    def listIssuesUrl(self) -> str:
-        return f'{self.__endpoint}/api/v3/repos/{self.__owner}/{self.__repo}/issues'
+    def __getRequestWithToken(self, subUrl: str, payload={}) -> requests.Response:
+        """
+        引数に与えられたURLに認証トークン付きでGetリクエストを送信し、結果を返します。
+        """
+        header = {
+            'Authorization': f'token {self.__token}',
+            'content-type': 'application/json'
+        }
+        return requests.get(
+            f'{self.__endpoint}/api/v3/{self.__owner}/{self.__repo}/{subUrl}', headers=header, params=payload)
 
     def getIssuesPerPage(self, pageNum: int, state='open') -> list:
         """
@@ -20,7 +27,7 @@ class GitbucketApi:
             'page': pageNum,
             'state': state
         }
-        response = request.getRequestWithToken(f'{self.listIssuesUrl}', self.__token, payload)
+        response = self.__getRequestWithToken('issues', payload)
         issues = response.json()
         return issues
 
