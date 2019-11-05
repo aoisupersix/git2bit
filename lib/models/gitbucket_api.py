@@ -3,14 +3,14 @@ from lib.utils import request_with_token as request
 
 class GitbucketApi:
     def __init__(self, endpoint: str, owner: str, repo: str, token: str) -> None:
-        self.endpoint = endpoint
-        self.owner = owner
-        self.repo = repo
-        self.token = token
+        self.__endpoint = endpoint
+        self.__owner = owner
+        self.__repo = repo
+        self.__token = token
 
     @property
     def listIssuesUrl(self) -> str:
-        return f'{self.endpoint}/api/v3/repos/{self.owner}/{self.repo}/issues'
+        return f'{self.__endpoint}/api/v3/repos/{self.__owner}/{self.__repo}/issues'
 
     def getIssuesPerPage(self, pageNum: int, state='open') -> list:
         """
@@ -20,7 +20,7 @@ class GitbucketApi:
             'page': pageNum,
             'state': state
         }
-        response = request.getRequestWithToken(f'{self.listIssuesUrl}', self.token, payload)
+        response = request.getRequestWithToken(f'{self.listIssuesUrl}', self.__token, payload)
         issues = response.json()
         return issues
 
