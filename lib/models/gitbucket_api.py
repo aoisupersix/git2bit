@@ -8,6 +8,10 @@ class GitbucketApi:
         self.__repo = repo
         self.__token = token
 
+    @property
+    def baseUrl(self) -> str:
+        return f'{self.__endpoint}/api/v3/{self.__owner}/{self.__repo}'
+
     def __getRequestWithToken(self, subUrl: str, payload={}) -> requests.Response:
         """
         引数に与えられたURLに認証トークン付きでGetリクエストを送信し、結果を返します。
@@ -17,7 +21,7 @@ class GitbucketApi:
             'content-type': 'application/json'
         }
         return requests.get(
-            f'{self.__endpoint}/api/v3/{self.__owner}/{self.__repo}/{subUrl}', headers=header, params=payload)
+            f'{self.baseUrl}/{subUrl}', headers=header, params=payload)
 
     def getIssuesPerPage(self, pageNum: int, state='open') -> list:
         """
