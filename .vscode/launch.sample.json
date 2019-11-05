@@ -11,11 +11,7 @@
                 "--gitbucket_endpoint=endpoint",
                 "--gitbucket_owner=owner",
                 "--gitbucket_repo=repo",
-                "--gitbucket_token=token",
-                "--bitbucket_endpoint=endpoint",
-                "--bitbucket_owner=owner",
-                "--bitbucket_repo=repo",
-                "--bitbucket_token=token"
+                "--gitbucket_token=token"
             ]
         }
     ]
