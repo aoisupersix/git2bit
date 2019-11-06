@@ -20,8 +20,19 @@ class GitbucketApi:
             'Authorization': f'token {self.__token}',
             'content-type': 'application/json'
         }
-        return requests.get(
+        response = requests.get(
             f'{self.baseUrl}/{subUrl}', headers=header, params=payload)
+
+        if not response.ok:
+            raise RuntimeError('''
+                Gitbucket API did not return a normal response.
+                ------------------------------------------------
+                requested_url: {url}
+                status_code: {status_code}
+                response_text: {response}
+                '''.format(url=response.url, status_code=response.status_code, response=response.text))
+
+        return response
 
     def getIssuesPerPage(self, pageNum: int, state='open') -> list:
         """
@@ -32,15 +43,6 @@ class GitbucketApi:
             'state': state
         }
         response = self.__getRequestWithToken('issues', payload)
-
-        if not response.ok:
-            raise RuntimeError('''
-                Gitbucket API did not return a normal response.
-                ------------------------------------------------
-                requested_url: {url}
-                status_code: {status_code}
-                response_text: {response}
-                '''.format(url=f'{self.baseUrl}/issues', status_code=response.status_code, response=response.text))
 
         issues = response.json()
         return issues
