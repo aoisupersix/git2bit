@@ -10,7 +10,7 @@ class GitbucketApi:
 
     @property
     def baseUrl(self) -> str:
-        return f'{self.__endpoint}/api/v3/{self.__owner}/{self.__repo}'
+        return f'{self.__endpoint}/api/v3/repos/{self.__owner}/{self.__repo}'
 
     def __getRequestWithToken(self, subUrl: str, payload={}) -> requests.Response:
         """
