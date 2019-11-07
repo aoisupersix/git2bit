@@ -5,7 +5,7 @@
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceRoot}/transfer.py",
+            "program": "${workspaceRoot}/export.py",
             "console": "integratedTerminal",
             "args": [
                 "--gitbucket_endpoint=endpoint",
