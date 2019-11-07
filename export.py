@@ -12,3 +12,6 @@ gitbucket = gitbucket_api.GitbucketApi(
 
 issues = sorted(gitbucket.getAllIssues(), key=lambda x: x['number'])  # チケット番号でソート
 write_data.writeData(f'./data/gitbucket_issues_{args.gitbucket_owner}-{args.gitbucket_repo}.json', issues)
+
+labels = gitbucket.getLabels()
+write_data.writeData(f'./data/gitbucket_labels_{args.gitbucket_owner}-{args.gitbucket_repo}.json', labels)

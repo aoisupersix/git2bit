@@ -34,6 +34,7 @@ class GitbucketApi:
 
         return response
 
+# region Issues
     def getIssuesPerPage(self, pageNum: int, state='open') -> list:
         """
         Issueを1ページ分取得します
@@ -69,3 +70,12 @@ class GitbucketApi:
         allIssues = self.getIssues('open')
         allIssues.extend(self.getIssues('closed'))
         return allIssues
+# endregion
+
+    def getLabels(self) -> list:
+        """
+        リポジトリの全ラベルを取得します
+        """
+
+        response = self.__getRequestWithToken('labels')
+        return response.json()
