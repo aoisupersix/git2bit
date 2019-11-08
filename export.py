@@ -1,5 +1,8 @@
+import json
+
 from lib.models import argument_parser as parser
 from lib.models import GitbucketApi
+from lib.models import issue_converter
 from lib.utils import writeData
 
 args = parser.parse()
@@ -19,3 +22,25 @@ writeData(f'gitbucket_comments_{args.gitbucket_owner}-{args.gitbucket_repo}.json
 
 labels = gitbucket.getLabels()
 writeData(f'gitbucket_labels_{args.gitbucket_owner}-{args.gitbucket_repo}.json', labels)
+
+# 一旦ここで変換を試してみる
+result = {
+    'issues': [issue_converter.convert(issue) for issue in issues],
+    'comments': [],
+    'attachments': [],
+    'logs': [],  # これはGitbucketのAPIからは取得できないので空
+    'meta': {
+        'default_assignee': None,
+        'default_component': None,
+        'default_kind': 'task',  # これは引数で設定できるようにしたい
+        'default_milestone': None,
+        'default_version': None,
+    },
+    'components': [],
+    'milestones': [],
+    'versions': [],
+}
+
+# TODO: ZIPに圧縮する
+with open('./db-2.0.json', 'w') as f:
+    json.dump(result, f, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))
