@@ -1,9 +1,9 @@
 from lib.models import argument_parser as parser
-from lib.models import gitbucket_api
+from lib.models import GitbucketApi
 from lib.utils import write_data
 
 args = parser.parse()
-gitbucket = gitbucket_api.GitbucketApi(
+gitbucket = GitbucketApi(
     args.gitbucket_endpoint,
     args.gitbucket_owner,
     args.gitbucket_repo,
