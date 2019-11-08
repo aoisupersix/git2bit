@@ -52,10 +52,10 @@ def getKind(gitbucketIssue: dict) -> Union[str, None]:
 
 def getStatus(gitbucketIssue: dict) -> str:
     """
-    Gitbucketのラベルから無理やりBitBucketのstatus(new, open, resolved, on hold, invalid, duplicate, wontfix)に変換します
-    デフォルトは'open'
+    GitbucketのラベルとIssueの状態から無理やりBitBucketのstatus(new, open, resolved, on hold, invalid, duplicate, wontfix)に変換します
     """
 
+    # ラベルから判断
     labels = gitbucketIssue['labels']
     if 'new' in labels:
         return 'new'
@@ -72,4 +72,8 @@ def getStatus(gitbucketIssue: dict) -> str:
     elif 'wontfix' in labels:
         return 'wontfix'
 
-    return 'open'
+    # Issueの状態から判断
+    if gitbucketIssue.get('state') == 'open':
+        return 'open'
+    else:
+        return 'resolved'
