@@ -80,10 +80,21 @@ class GitbucketApi:
         response = self.__getRequestWithToken('labels')
         return response.json()
 
-    def getComments(self, issueNo: int) -> list:
+    def getIssueComments(self, issueNo: int) -> list:
         """
         引数に指定されたIssueの全コメントを取得します
         """
 
         response = self.__getRequestWithToken(f'issues/{issueNo}/comments')
         return response.json()
+
+    def getIssuesComments(self, issueNos: list) -> list:
+        """
+        引数に指定されたIssueの全コメントを取得します
+        """
+
+        allComments = []
+        for issueNo in issueNos:
+            allComments.extend(self.getIssueComments(issueNo))
+
+        return allComments
