@@ -1,4 +1,5 @@
 import json
+import zipfile
 
 from lib.models import argument_parser as parser
 from lib.models import GitbucketApi
@@ -41,6 +42,7 @@ result = {
     'versions': [],
 }
 
-# TODO: ZIPに圧縮する
-with open('./db-2.0.json', 'w') as f:
-    json.dump(result, f, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))
+with zipfile.ZipFile(f'{args.gitbucket_repo}-issues.zip', 'w', compression=zipfile.ZIP_DEFLATED) as zip:
+    zip.writestr(
+        'db-2.0.json',
+        json.dumps(result, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': ')))
