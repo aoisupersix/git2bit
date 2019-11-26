@@ -1,11 +1,20 @@
+import pytest
+import unittest.mock
+
 from lib.models.gitbucket_api import GitbucketApi
 
 
-def test_getIssuesPerPage_RequestParameters(mocker):
-    requests = mocker.MagicMock(**{
+@pytest.fixture
+def requests():
+    requests = unittest.mock.MagicMock(**{
         'return_value.ok': True,
         'return_value.json.return_value': {}
     })
+
+    return requests
+
+
+def test_getIssuesPerPage_RequestParameters(mocker, requests):
 
     mocker.patch('requests.get', requests)
     GitbucketApi('endpoint', 'owner', 'repo', 'token').getIssuesPerPage(1)
