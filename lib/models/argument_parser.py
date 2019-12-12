@@ -7,6 +7,7 @@ def parse() -> argparse.Namespace:
     parser.add_argument('-go', '--gitbucket_owner', required=True)
     parser.add_argument('-gr', '--gitbucket_repo', required=True)
     parser.add_argument('-gt', '--gitbucket_token', required=True)
+    parser.add_argument('-m', '--mapping', required=False)
 
     args = parser.parse_args()
     args.gitbucket_endpoint = removeTrailingSlash(args.gitbucket_endpoint)
