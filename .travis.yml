@@ -9,4 +9,7 @@ install:
 
 # command to run the dependencies
 script:
-  - "pytest tests"
+  - "pytest --cov-report=xml --cov=lib tests"
+
+after_success:
+  - "codecov"
