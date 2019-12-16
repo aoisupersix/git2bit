@@ -5,7 +5,7 @@ from lib.models.gitbucket_api import GitbucketApi
 
 
 @pytest.fixture
-def requests():
+def emptyRequests():
     requests = unittest.mock.MagicMock(**{
         'return_value.ok': True,
         'return_value.json.return_value': {}
@@ -14,11 +14,11 @@ def requests():
     return requests
 
 
-def test_getIssuesPerPage_RequestParameters(mocker, requests):
+def test_getIssuesPerPage_RequestParameters(mocker, emptyRequests):
 
-    mocker.patch('requests.get', requests)
+    mocker.patch('requests.get', emptyRequests)
     GitbucketApi('endpoint', 'owner', 'repo', 'token').getIssuesPerPage(1)
-    issues_endpoint, optional_args = requests.call_args
+    issues_endpoint, optional_args = emptyRequests.call_args
 
     # Check Request Header
     assert 'headers' in optional_args
