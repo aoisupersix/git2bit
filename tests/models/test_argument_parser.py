@@ -1,7 +1,7 @@
 import pytest
 from pytest_mock.plugin import MockFixture
 
-from lib.models.argument_parser import parse
+from lib.models.argument_parser import parse, removeTrailingSlash
 
 
 @pytest.fixture
@@ -40,3 +40,11 @@ def test_parse_OptionalArguments(mocker: MockFixture, argv: list):
     assert args.gitbucket_repo == 'repo'
     assert args.gitbucket_token == 'token'
     assert args.mapping == 'mapping'
+
+
+def test_removeTrailingSlash_Removing():
+    assert removeTrailingSlash('abc/def/') == 'abc/def'
+
+
+def test_removeTrailingSlash_NotRemoving():
+    assert removeTrailingSlash('abc/def') == 'abc/def'
