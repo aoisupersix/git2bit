@@ -1,5 +1,6 @@
 import pytest
 from unittest.mock import MagicMock
+from pytest_mock.plugin import MockFixture
 
 from lib.models.gitbucket_api import GitbucketApi
 
@@ -14,7 +15,7 @@ def emptyRequests():
     return requests
 
 
-def test_getIssuesPerPage_RequestParameters(mocker, emptyRequests):
+def test_getIssuesPerPage_RequestParameters(mocker: MockFixture, emptyRequests: MagicMock):
 
     mocker.patch('requests.get', emptyRequests)
     GitbucketApi('endpoint', 'owner', 'repo', 'token').getIssuesPerPage(1)
