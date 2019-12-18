@@ -1,12 +1,12 @@
 import pytest
-import unittest.mock
+from unittest.mock import MagicMock
 
 from lib.models.gitbucket_api import GitbucketApi
 
 
 @pytest.fixture
 def emptyRequests():
-    requests = unittest.mock.MagicMock(**{
+    requests = MagicMock(**{
         'return_value.ok': True,
         'return_value.json.return_value': {}
     })
