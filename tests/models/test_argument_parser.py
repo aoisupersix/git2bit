@@ -27,3 +27,16 @@ def test_parse_RequiredArguments(mocker: MockFixture, argv: list):
     assert args.gitbucket_repo == 'repo'
     assert args.gitbucket_token == 'token'
     assert args.mapping is None
+
+
+def test_parse_OptionalArguments(mocker: MockFixture, argv: list):
+    argv.append('--mapping=mapping')
+    mocker.patch('sys.argv', argv)
+    args = parse()
+
+    assert len(vars(args)) == 5
+    assert args.gitbucket_endpoint == 'endpoint'
+    assert args.gitbucket_owner == 'owner'
+    assert args.gitbucket_repo == 'repo'
+    assert args.gitbucket_token == 'token'
+    assert args.mapping == 'mapping'
