@@ -1,16 +1,23 @@
+import pytest
 from pytest_mock.plugin import MockFixture
 
 from lib.models.argument_parser import parse
 
 
-def test_parse_RequiredArguments(mocker: MockFixture):
-    argv = [
+@pytest.fixture
+def argv():
+    argument = [
         'exec/commandline',
         '--gitbucket_endpoint=endpoint',
         '--gitbucket_owner=owner',
         '--gitbucket_repo=repo',
         '--gitbucket_token=token'
     ]
+
+    return argument
+
+
+def test_parse_RequiredArguments(mocker: MockFixture, argv: list):
     mocker.patch('sys.argv', argv)
     args = parse()
 
