@@ -84,6 +84,34 @@ def bitbucketBugIssue():
     return issue
 
 
+@pytest.fixture
+def gitbucketEnhancementIssue():
+    issue = gitbucketBaseIssue()
+    issue['labels'] = ['enhancement']
+    return issue
+
+
+@pytest.fixture
+def bitbucketEnhancementIssue():
+    issue = bitbucketBaseIssue()
+    issue['kind'] = 'enhancement'
+    return issue
+
+
+@pytest.fixture
+def gitbucketProposalIssue():
+    issue = gitbucketBaseIssue()
+    issue['labels'] = ['proposal']
+    return issue
+
+
+@pytest.fixture
+def bitbucketProposalIssue():
+    issue = bitbucketBaseIssue()
+    issue['kind'] = 'proposal'
+    return issue
+
+
 def test_convert_normalIssue(gitbucketIssue, bitbucketIssue):
     actual = convert(gitbucketIssue)
     assert actual == bitbucketIssue
@@ -92,3 +120,13 @@ def test_convert_normalIssue(gitbucketIssue, bitbucketIssue):
 def test_convert_bugIssue(gitbucketBugIssue, bitbucketBugIssue):
     actual = convert(gitbucketBugIssue)
     assert actual == bitbucketBugIssue
+
+
+def test_convert_enhancementIssue(gitbucketEnhancementIssue, bitbucketEnhancementIssue):
+    actual = convert(gitbucketEnhancementIssue)
+    assert actual == bitbucketEnhancementIssue
+
+
+def test_convert_proposalIssue(gitbucketProposalIssue, bitbucketProposalIssue):
+    actual = convert(gitbucketProposalIssue)
+    assert actual == bitbucketProposalIssue
