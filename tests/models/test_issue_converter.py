@@ -3,8 +3,10 @@ import pytest
 from lib.models.issue_converter import convert
 
 
-@pytest.fixture
-def gitbucketIssue():
+def gitbucketBaseIssue():
+    """
+    GitbucketIssueのベースとなるデータを生成して返します。
+    """
     return {
         'number': 1,
         'title': 'issue_title',
@@ -30,8 +32,10 @@ def gitbucketIssue():
     }
 
 
-@pytest.fixture
-def bitbucketIssue():
+def bitbucketBaseIssue():
+    """
+    BitbucketIssueのベースとなるデータを生成して返します。
+    """
     return {
         'assignee': None,
         'component': None,
@@ -54,6 +58,16 @@ def bitbucketIssue():
         'watchers': [],
         'voters': []
     }
+
+
+@pytest.fixture
+def gitbucketIssue():
+    return gitbucketBaseIssue()
+
+
+@pytest.fixture
+def bitbucketIssue():
+    return bitbucketBaseIssue()
 
 
 def test_convert_normalIssue(gitbucketIssue, bitbucketIssue):
