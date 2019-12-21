@@ -70,6 +70,25 @@ def bitbucketIssue():
     return bitbucketBaseIssue()
 
 
+@pytest.fixture
+def gitbucketBugIssue():
+    issue = gitbucketBaseIssue()
+    issue['labels'] = ['bug']
+    return issue
+
+
+@pytest.fixture
+def bitbucketBugIssue():
+    issue = bitbucketBaseIssue()
+    issue['kind'] = 'bug'
+    return issue
+
+
 def test_convert_normalIssue(gitbucketIssue, bitbucketIssue):
     actual = convert(gitbucketIssue)
     assert actual == bitbucketIssue
+
+
+def test_convert_bugIssue(gitbucketBugIssue, bitbucketBugIssue):
+    actual = convert(gitbucketBugIssue)
+    assert actual == bitbucketBugIssue
