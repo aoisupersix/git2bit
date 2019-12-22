@@ -1,6 +1,12 @@
 import pytest
 
 from lib.models.issue_converter import convert
+from lib.models import IdConverter
+
+
+@pytest.fixture
+def emptyIdConverter():
+    return IdConverter({})
 
 
 def gitbucketBaseIssue():
@@ -224,61 +230,61 @@ def bitbucketClosedIssue():
     return issue
 
 
-def test_convert_normalIssue(gitbucketIssue, bitbucketIssue):
-    actual = convert(gitbucketIssue)
+def test_convert_normalIssue(emptyIdConverter, gitbucketIssue, bitbucketIssue):
+    actual = convert(gitbucketIssue, emptyIdConverter)
     assert actual == bitbucketIssue
 
 
-def test_convert_bugIssue(gitbucketBugIssue, bitbucketBugIssue):
-    actual = convert(gitbucketBugIssue)
+def test_convert_bugIssue(emptyIdConverter, gitbucketBugIssue, bitbucketBugIssue):
+    actual = convert(gitbucketBugIssue, emptyIdConverter)
     assert actual == bitbucketBugIssue
 
 
-def test_convert_enhancementIssue(gitbucketEnhancementIssue, bitbucketEnhancementIssue):
-    actual = convert(gitbucketEnhancementIssue)
+def test_convert_enhancementIssue(emptyIdConverter, gitbucketEnhancementIssue, bitbucketEnhancementIssue):
+    actual = convert(gitbucketEnhancementIssue, emptyIdConverter)
     assert actual == bitbucketEnhancementIssue
 
 
-def test_convert_proposalIssue(gitbucketProposalIssue, bitbucketProposalIssue):
-    actual = convert(gitbucketProposalIssue)
+def test_convert_proposalIssue(emptyIdConverter, gitbucketProposalIssue, bitbucketProposalIssue):
+    actual = convert(gitbucketProposalIssue, emptyIdConverter)
     assert actual == bitbucketProposalIssue
 
 
-def test_convert_NewIssue(gitbucketNewIssue, bitbucketNewIssue):
-    actual = convert(gitbucketNewIssue)
+def test_convert_NewIssue(emptyIdConverter, gitbucketNewIssue, bitbucketNewIssue):
+    actual = convert(gitbucketNewIssue, emptyIdConverter)
     assert actual == bitbucketNewIssue
 
 
-def test_convert_OpenedIssue(gitbucketOpenedIssue, bitbucketOpenedIssue):
-    actual = convert(gitbucketOpenedIssue)
+def test_convert_OpenedIssue(emptyIdConverter, gitbucketOpenedIssue, bitbucketOpenedIssue):
+    actual = convert(gitbucketOpenedIssue, emptyIdConverter)
     assert actual == bitbucketOpenedIssue
 
 
-def test_convert_ResolvedIssue(gitbucketResolvedIssue, bitbucketResolvedIssue):
-    actual = convert(gitbucketResolvedIssue)
+def test_convert_ResolvedIssue(emptyIdConverter, gitbucketResolvedIssue, bitbucketResolvedIssue):
+    actual = convert(gitbucketResolvedIssue, emptyIdConverter)
     assert actual == bitbucketResolvedIssue
 
 
-def test_convert_OnHoldIssue(gitbucketOnHoldIssue, bitbucketOnHoldIssue):
-    actual = convert(gitbucketOnHoldIssue)
+def test_convert_OnHoldIssue(emptyIdConverter, gitbucketOnHoldIssue, bitbucketOnHoldIssue):
+    actual = convert(gitbucketOnHoldIssue, emptyIdConverter)
     assert actual == bitbucketOnHoldIssue
 
 
-def test_convert_InvalidIssue(gitbucketInvalidIssue, bitbucketInvalidIssue):
-    actual = convert(gitbucketInvalidIssue)
+def test_convert_InvalidIssue(emptyIdConverter, gitbucketInvalidIssue, bitbucketInvalidIssue):
+    actual = convert(gitbucketInvalidIssue, emptyIdConverter)
     assert actual == bitbucketInvalidIssue
 
 
-def test_convert_DuplicatedIssue(gitbucketDuplicatedIssue, bitbucketDuplicatedIssue):
-    actual = convert(gitbucketDuplicatedIssue)
+def test_convert_DuplicatedIssue(emptyIdConverter, gitbucketDuplicatedIssue, bitbucketDuplicatedIssue):
+    actual = convert(gitbucketDuplicatedIssue, emptyIdConverter)
     assert actual == bitbucketDuplicatedIssue
 
 
-def test_convert_WontfixIssue(gitbucketWontfixIssue, bitbucketWontfixIssue):
-    actual = convert(gitbucketWontfixIssue)
+def test_convert_WontfixIssue(emptyIdConverter, gitbucketWontfixIssue, bitbucketWontfixIssue):
+    actual = convert(gitbucketWontfixIssue, emptyIdConverter)
     assert actual == bitbucketWontfixIssue
 
 
-def test_convert_ClosedIssue(gitbucketClosedIssue, bitbucketClosedIssue):
-    actual = convert(gitbucketClosedIssue)
+def test_convert_ClosedIssue(emptyIdConverter, gitbucketClosedIssue, bitbucketClosedIssue):
+    actual = convert(gitbucketClosedIssue, emptyIdConverter)
     assert actual == bitbucketClosedIssue
