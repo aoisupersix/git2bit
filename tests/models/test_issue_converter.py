@@ -112,6 +112,118 @@ def bitbucketProposalIssue():
     return issue
 
 
+@pytest.fixture
+def gitbucketNewIssue():
+    issue = gitbucketBaseIssue()
+    issue['labels'] = 'new'
+    return issue
+
+
+@pytest.fixture
+def bitbucketNewIssue():
+    issue = bitbucketBaseIssue()
+    issue['status'] = 'new'
+    return issue
+
+
+@pytest.fixture
+def gitbucketOpenedIssue():
+    issue = gitbucketBaseIssue()
+    issue['labels'] = 'open'
+    return issue
+
+
+@pytest.fixture
+def bitbucketOpenedIssue():
+    issue = bitbucketBaseIssue()
+    issue['status'] = 'open'
+    return issue
+
+
+@pytest.fixture
+def gitbucketResolvedIssue():
+    issue = gitbucketBaseIssue()
+    issue['labels'] = 'resolved'
+    return issue
+
+
+@pytest.fixture
+def bitbucketResolvedIssue():
+    issue = bitbucketBaseIssue()
+    issue['status'] = 'resolved'
+    return issue
+
+
+@pytest.fixture
+def gitbucketOnHoldIssue():
+    issue = gitbucketBaseIssue()
+    issue['labels'] = 'on hold'
+    return issue
+
+
+@pytest.fixture
+def bitbucketOnHoldIssue():
+    issue = bitbucketBaseIssue()
+    issue['status'] = 'on hold'
+    return issue
+
+
+@pytest.fixture
+def gitbucketInvalidIssue():
+    issue = gitbucketBaseIssue()
+    issue['labels'] = 'invalid'
+    return issue
+
+
+@pytest.fixture
+def bitbucketInvalidIssue():
+    issue = bitbucketBaseIssue()
+    issue['status'] = 'invalid'
+    return issue
+
+
+@pytest.fixture
+def gitbucketDuplicatedIssue():
+    issue = gitbucketBaseIssue()
+    issue['labels'] = 'duplicate'
+    return issue
+
+
+@pytest.fixture
+def bitbucketDuplicatedIssue():
+    issue = bitbucketBaseIssue()
+    issue['status'] = 'duplicate'
+    return issue
+
+
+@pytest.fixture
+def gitbucketWontfixIssue():
+    issue = gitbucketBaseIssue()
+    issue['labels'] = 'wontfix'
+    return issue
+
+
+@pytest.fixture
+def bitbucketWontfixIssue():
+    issue = bitbucketBaseIssue()
+    issue['status'] = 'wontfix'
+    return issue
+
+
+@pytest.fixture
+def gitbucketClosedIssue():
+    issue = gitbucketBaseIssue()
+    issue['state'] = 'closed'
+    return issue
+
+
+@pytest.fixture
+def bitbucketClosedIssue():
+    issue = bitbucketBaseIssue()
+    issue['status'] = 'resolved'
+    return issue
+
+
 def test_convert_normalIssue(gitbucketIssue, bitbucketIssue):
     actual = convert(gitbucketIssue)
     assert actual == bitbucketIssue
@@ -130,3 +242,43 @@ def test_convert_enhancementIssue(gitbucketEnhancementIssue, bitbucketEnhancemen
 def test_convert_proposalIssue(gitbucketProposalIssue, bitbucketProposalIssue):
     actual = convert(gitbucketProposalIssue)
     assert actual == bitbucketProposalIssue
+
+
+def test_convert_NewIssue(gitbucketNewIssue, bitbucketNewIssue):
+    actual = convert(gitbucketNewIssue)
+    assert actual == bitbucketNewIssue
+
+
+def test_convert_OpenedIssue(gitbucketOpenedIssue, bitbucketOpenedIssue):
+    actual = convert(gitbucketOpenedIssue)
+    assert actual == bitbucketOpenedIssue
+
+
+def test_convert_ResolvedIssue(gitbucketResolvedIssue, bitbucketResolvedIssue):
+    actual = convert(gitbucketResolvedIssue)
+    assert actual == bitbucketResolvedIssue
+
+
+def test_convert_OnHoldIssue(gitbucketOnHoldIssue, bitbucketOnHoldIssue):
+    actual = convert(gitbucketOnHoldIssue)
+    assert actual == bitbucketOnHoldIssue
+
+
+def test_convert_InvalidIssue(gitbucketInvalidIssue, bitbucketInvalidIssue):
+    actual = convert(gitbucketInvalidIssue)
+    assert actual == bitbucketInvalidIssue
+
+
+def test_convert_DuplicatedIssue(gitbucketDuplicatedIssue, bitbucketDuplicatedIssue):
+    actual = convert(gitbucketDuplicatedIssue)
+    assert actual == bitbucketDuplicatedIssue
+
+
+def test_convert_WontfixIssue(gitbucketWontfixIssue, bitbucketWontfixIssue):
+    actual = convert(gitbucketWontfixIssue)
+    assert actual == bitbucketWontfixIssue
+
+
+def test_convert_ClosedIssue(gitbucketClosedIssue, bitbucketClosedIssue):
+    actual = convert(gitbucketClosedIssue)
+    assert actual == bitbucketClosedIssue
