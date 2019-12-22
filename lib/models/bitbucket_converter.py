@@ -1,12 +1,13 @@
 from lib.models import issue_converter
+from lib.models import IdConverter
 
 
-def convert(issues: list, comments: list) -> dict:
+def convert(issues: list, comments: list, idConverter: IdConverter) -> dict:
     """
     Bitbucketにインポートできる形式に変換します
     """
     return {
-        'issues': [issue_converter.convert(issue) for issue in issues],
+        'issues': [issue_converter.convert(issue, idConverter) for issue in issues],
         'comments': comments,
         'attachments': [],
         'logs': [],  # これはGitbucketのAPIからは取得できないので空

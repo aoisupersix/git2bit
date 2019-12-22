@@ -1,10 +1,13 @@
 from typing import Union
 
+from lib.models import IdConverter
 
-def convert(gitbucketIssue: dict) -> dict:
+def convert(gitbucketIssue: dict, idConverter: IdConverter) -> dict:
     """
     GitbucketのIssueをBitbucketのインポータに対応した形式に変換します
     """
+
+    reporterId = idConverter.convertToBitbucketId(gitbucketIssue['user'].get('login'))
 
     return {
         # GitbucketのAPIだとアサインが取得できないという、、、
@@ -20,8 +23,8 @@ def convert(gitbucketIssue: dict) -> dict:
         'milestone': None,  # これもGitbucketのAPIが未対応
         'priority': 'major',  # これも。ただnot nullなので何か指定する必要がある
         'reporter': {
-            'display_name': gitbucketIssue['user'].get('login'),
-            'account_id': gitbucketIssue['user'].get('login'),
+            'display_name': reporterId,
+            'account_id': reporterId,
         },
         'status': getStatus(gitbucketIssue),
         'title': gitbucketIssue.get('title'),

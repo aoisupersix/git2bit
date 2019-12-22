@@ -3,6 +3,7 @@ import zipfile
 
 from lib.models import argument_parser as parser
 from lib.models import GitbucketApi
+from lib.models import IdConverter
 from lib.models import bitbucket_converter
 from lib.utils import writeData
 
@@ -14,6 +15,10 @@ gitbucket = GitbucketApi(
     args.gitbucket_token
 )
 
+idConverter = IdConverter()
+if (args.mapping is not None):
+    idConverter.loadMappingFromFilePath(args.mappingFilePath)
+
 issues = sorted(gitbucket.getAllIssues(), key=lambda x: x['number'])  # チケット番号でソート
 writeData(f'gitbucket_issues_{args.gitbucket_owner}-{args.gitbucket_repo}.json', issues)
 
@@ -24,7 +29,7 @@ writeData(f'gitbucket_comments_{args.gitbucket_owner}-{args.gitbucket_repo}.json
 labels = gitbucket.getLabels()
 writeData(f'gitbucket_labels_{args.gitbucket_owner}-{args.gitbucket_repo}.json', labels)
 
-export = bitbucket_converter.convert(issues, [])
+export = bitbucket_converter.convert(issues, [], idConverter)
 
 with zipfile.ZipFile(f'{args.gitbucket_repo}-issues.zip', 'w', compression=zipfile.ZIP_DEFLATED) as zip:
     zip.writestr(
