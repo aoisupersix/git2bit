@@ -6,7 +6,7 @@ class IdConverter:
     GitbucketのユーザIDとBitbucketのユーザIDを変換します
     """
 
-    def __init__(self, mapping: dict):
+    def __init__(self, mapping: dict = {}):
         self.__mapping = mapping
 
     def loadMappingFromFilePath(self, mappingFilePath: str):
