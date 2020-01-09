@@ -7,31 +7,39 @@ from lib.models import IdConverter
 from lib.models import bitbucket_converter
 from lib.utils import writeData
 
-args = parser.parse()
-gitbucket = GitbucketApi(
-    args.gitbucket_endpoint,
-    args.gitbucket_owner,
-    args.gitbucket_repo,
-    args.gitbucket_token
-)
 
-idConverter = IdConverter()
-if (args.mapping is not None):
-    idConverter.loadMappingFromFilePath(args.mappingFilePath)
+def export():
+    """Execute convert gitbucket -> bitbucket
+    """
+    args = parser.parse()
+    gitbucket = GitbucketApi(
+        args.gitbucket_endpoint,
+        args.gitbucket_owner,
+        args.gitbucket_repo,
+        args.gitbucket_token
+    )
 
-issues = sorted(gitbucket.getAllIssues(), key=lambda x: x['number'])  # チケット番号でソート
-writeData(f'gitbucket_issues_{args.gitbucket_owner}-{args.gitbucket_repo}.json', issues)
+    idConverter = IdConverter()
+    if (args.mapping is not None):
+        idConverter.loadMappingFromFilePath(args.mappingFilePath)
 
-issueNos = [issue['number'] for issue in issues]
-comments = gitbucket.getIssuesComments(issueNos)
-writeData(f'gitbucket_comments_{args.gitbucket_owner}-{args.gitbucket_repo}.json', comments)
+    issues = sorted(gitbucket.getAllIssues(), key=lambda x: x['number'])  # チケット番号でソート
+    writeData(f'gitbucket_issues_{args.gitbucket_owner}-{args.gitbucket_repo}.json', issues)
 
-labels = gitbucket.getLabels()
-writeData(f'gitbucket_labels_{args.gitbucket_owner}-{args.gitbucket_repo}.json', labels)
+    issueNos = [issue['number'] for issue in issues]
+    comments = gitbucket.getIssuesComments(issueNos)
+    writeData(f'gitbucket_comments_{args.gitbucket_owner}-{args.gitbucket_repo}.json', comments)
 
-export = bitbucket_converter.convert(issues, [], idConverter)
+    labels = gitbucket.getLabels()
+    writeData(f'gitbucket_labels_{args.gitbucket_owner}-{args.gitbucket_repo}.json', labels)
 
-with zipfile.ZipFile(f'{args.gitbucket_repo}-issues.zip', 'w', compression=zipfile.ZIP_DEFLATED) as zip:
-    zip.writestr(
-        'db-2.0.json',
-        json.dumps(export, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': ')))
+    export = bitbucket_converter.convert(issues, [], idConverter)
+
+    with zipfile.ZipFile(f'{args.gitbucket_repo}-issues.zip', 'w', compression=zipfile.ZIP_DEFLATED) as zip:
+        zip.writestr(
+            'db-2.0.json',
+            json.dumps(export, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': ')))
+
+
+if __name__ == '__main__':
+    export()
