@@ -2,17 +2,17 @@ from typing import Union
 
 from lib.models import IdConverter
 
+
 def convert(gitbucketIssue: dict, idConverter: IdConverter) -> dict:
     """
     GitbucketのIssueをBitbucketのインポータに対応した形式に変換します
     """
 
     reporterId = idConverter.convertToBitbucketId(gitbucketIssue['user'].get('login'))
+    assigneeId = idConverter.convertToBitbucketId(gitbucketIssue.get('assignee', {}).get('login', ''))
 
     return {
-        # GitbucketのAPIだとアサインが取得できないという、、、
-        # https://github.com/gitbucket/gitbucket/issues/1743 で2017年ごろに起票されているのにまだ未修正。残念
-        'assignee': None,
+        'assignee': assigneeId or None,
         'component': None,
         'content': gitbucketIssue.get('body'),
         'content_updated_on': gitbucketIssue.get('updated_at'),
