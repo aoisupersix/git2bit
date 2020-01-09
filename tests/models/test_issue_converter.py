@@ -84,6 +84,21 @@ def bitbucketIssue():
 
 
 @pytest.fixture
+def gitbucketAssignedIssue():
+    issue = gitbucketBaseIssue()
+    issue['assignee'] = gitbucketBaseUser()
+    issue['assignees'] = [gitbucketBaseUser()]
+    return issue
+
+
+@pytest.fixture
+def bitbucketAssignedIssue():
+    issue = bitbucketBaseIssue()
+    issue['assignee'] = 'user_name'
+    return issue
+
+
+@pytest.fixture
 def gitbucketBugIssue():
     issue = gitbucketBaseIssue()
     issue['labels'] = ['bug']
@@ -240,6 +255,11 @@ def bitbucketClosedIssue():
 def test_convert_normalIssue(emptyIdConverter, gitbucketIssue, bitbucketIssue):
     actual = convert(gitbucketIssue, emptyIdConverter)
     assert actual == bitbucketIssue
+
+
+def test_convert_assignedIssue(emptyIdConverter, gitbucketAssignedIssue, bitbucketAssignedIssue):
+    actual = convert(gitbucketAssignedIssue, emptyIdConverter)
+    assert actual == bitbucketAssignedIssue
 
 
 def test_convert_bugIssue(emptyIdConverter, gitbucketBugIssue, bitbucketBugIssue):
