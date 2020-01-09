@@ -9,6 +9,23 @@ def emptyIdConverter():
     return IdConverter({})
 
 
+def gitbucketBaseUser():
+    """
+    GitbucketのAPIが返すUserデータのダミーを生成して返します。
+    """
+    return {
+        'login': 'user_name',
+        'email': 'email@example.com',
+        'type': 'User',
+        'site_admin': False,
+        'created_at': '2000-01-01T00:00:00Z',
+        'id': 0,
+        'url': 'user_url',
+        'html_url': 'user_html_url',
+        'avatar_url': 'user_avatar_url'
+    }
+
+
 def gitbucketBaseIssue():
     """
     GitbucketIssueのベースとなるデータを生成して返します。
@@ -16,17 +33,7 @@ def gitbucketBaseIssue():
     return {
         'number': 1,
         'title': 'issue_title',
-        'user': {
-            'login': 'user_name',
-            'email': 'email@example.com',
-            'type': 'User',
-            'site_admin': False,
-            'created_at': '2000-01-01T00:00:00Z',
-            'id': 0,
-            'url': 'user_url',
-            'html_url': 'user_html_url',
-            'avatar_url': 'user_avatar_url'
-        },
+        'user': gitbucketBaseUser(),
         'labels': [],
         'state': 'open',
         'created_at': '3000-01-01T00:00:00Z',
