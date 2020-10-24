@@ -8,10 +8,10 @@ from lib.models.argument_parser import parse, removeTrailingSlash
 def argv():
     argument = [
         'exec/commandline',
-        '--gitbucket_endpoint=endpoint',
-        '--gitbucket_owner=owner',
-        '--gitbucket_repo=repo',
-        '--gitbucket_token=token'
+        '--api-endpoint=endpoint',
+        '--owner=owner',
+        '--repo=repo',
+        '--token=token'
     ]
 
     return argument
@@ -22,10 +22,10 @@ def test_parse_RequiredArguments(mocker: MockFixture, argv: list):
     args = parse()
 
     assert len(vars(args)) == 5
-    assert args.gitbucket_endpoint == 'endpoint'
-    assert args.gitbucket_owner == 'owner'
-    assert args.gitbucket_repo == 'repo'
-    assert args.gitbucket_token == 'token'
+    assert args.api_endpoint == 'endpoint'
+    assert args.owner == 'owner'
+    assert args.repo == 'repo'
+    assert args.token == 'token'
     assert args.mapping is None
 
 
@@ -35,10 +35,10 @@ def test_parse_OptionalArguments(mocker: MockFixture, argv: list):
     args = parse()
 
     assert len(vars(args)) == 5
-    assert args.gitbucket_endpoint == 'endpoint'
-    assert args.gitbucket_owner == 'owner'
-    assert args.gitbucket_repo == 'repo'
-    assert args.gitbucket_token == 'token'
+    assert args.api_endpoint == 'endpoint'
+    assert args.owner == 'owner'
+    assert args.repo == 'repo'
+    assert args.token == 'token'
     assert args.mapping == 'mapping'
 
 

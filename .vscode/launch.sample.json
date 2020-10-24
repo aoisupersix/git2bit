@@ -8,10 +8,10 @@
             "program": "${workspaceRoot}/export.py",
             "console": "integratedTerminal",
             "args": [
-                "--gitbucket_endpoint=endpoint",
-                "--gitbucket_owner=owner",
-                "--gitbucket_repo=repo",
-                "--gitbucket_token=token"
+                "--api-endpoint=endpoint",
+                "--owner=owner",
+                "--repo=repo",
+                "--token=token"
             ]
         }
     ]

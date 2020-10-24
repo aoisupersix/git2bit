@@ -13,10 +13,10 @@ def export():
     """
     args = parser.parse()
     gitbucket = GitbucketApi(
-        args.gitbucket_endpoint,
-        args.gitbucket_owner,
-        args.gitbucket_repo,
-        args.gitbucket_token
+        args.api_endpoint,
+        args.owner,
+        args.repo,
+        args.token
     )
 
     idConverter = IdConverter()
@@ -24,18 +24,18 @@ def export():
         idConverter.loadMappingFromFilePath(args.mappingFilePath)
 
     issues = sorted(gitbucket.getAllIssues(), key=lambda x: x['number'])  # チケット番号でソート
-    writeData(f'gitbucket_issues_{args.gitbucket_owner}-{args.gitbucket_repo}.json', issues)
+    writeData(f'gitbucket_issues_{args.owner}-{args.repo}.json', issues)
 
     issueNos = [issue['number'] for issue in issues]
     comments = gitbucket.getIssuesComments(issueNos)
-    writeData(f'gitbucket_comments_{args.gitbucket_owner}-{args.gitbucket_repo}.json', comments)
+    writeData(f'gitbucket_comments_{args.owner}-{args.repo}.json', comments)
 
     labels = gitbucket.getLabels()
-    writeData(f'gitbucket_labels_{args.gitbucket_owner}-{args.gitbucket_repo}.json', labels)
+    writeData(f'gitbucket_labels_{args.owner}-{args.repo}.json', labels)
 
     export = bitbucket_converter.convert(issues, comments, idConverter)
 
-    with zipfile.ZipFile(f'{args.gitbucket_repo}-issues.zip', 'w', compression=zipfile.ZIP_DEFLATED) as zip:
+    with zipfile.ZipFile(f'{args.repo}-issues.zip', 'w', compression=zipfile.ZIP_DEFLATED) as zip:
         zip.writestr(
             'db-2.0.json',
             json.dumps(export, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': ')))
