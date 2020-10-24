@@ -7,6 +7,14 @@ class GitbucketComment(NamedTuple):
     payload: dict
 
 
+class GitbucketIssueResult(NamedTuple):
+    """All Issues, comments and labels fro the repositories to be fetched.
+    """
+    issueSummaries: List[dict]
+    comments: List[GitbucketComment]
+    labels: List[dict]
+
+
 class GitbucketApi:
     def __init__(self, endpoint: str, owner: str, repo: str, token: str) -> None:
         self.__endpoint = endpoint
@@ -39,6 +47,16 @@ class GitbucketApi:
                 '''.format(url=response.url, status_code=response.status_code, response=response.text))
 
         return response
+
+    def getIssueResult(self) -> GitbucketIssueResult:
+        """Retrieve all issues, comments and labels in the target repository.
+        """
+        issues = sorted(self.getAllIssues(), key=lambda x: x['number'])  # Sort by ticket number
+        issueNos = [issue['number'] for issue in issues]
+        comments = self.getIssuesComments(issueNos)
+        labels = self.getLabels()
+
+        return GitbucketIssueResult(issueSummaries=issues, comments=comments, labels=labels)
 
 # region Issues
     def getIssuesPerPage(self, pageNum: int, state='open') -> list:
