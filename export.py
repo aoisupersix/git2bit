@@ -23,17 +23,12 @@ def export():
     if (args.mapping is not None):
         idConverter.loadMappingFromFilePath(args.mappingFilePath)
 
-    issues = sorted(gitbucket.getAllIssues(), key=lambda x: x['number'])  # チケット番号でソート
-    writeTmpFile(f'gitbucket_issues_{args.owner}-{args.repo}.json', issues)
+    issueResult = gitbucket.getIssueResult()
+    writeTmpFile(f'gitbucket_issues_{args.owner}-{args.repo}.json', issueResult.issueSummaries)
+    writeTmpFile(f'gitbucket_comments_{args.owner}-{args.repo}.json', issueResult.comments)
+    writeTmpFile(f'gitbucket_labels_{args.owner}-{args.repo}.json', issueResult.labels)
 
-    issueNos = [issue['number'] for issue in issues]
-    comments = gitbucket.getIssuesComments(issueNos)
-    writeTmpFile(f'gitbucket_comments_{args.owner}-{args.repo}.json', comments)
-
-    labels = gitbucket.getLabels()
-    writeTmpFile(f'gitbucket_labels_{args.owner}-{args.repo}.json', labels)
-
-    export = bitbucket_converter.convert(issues, comments, idConverter)
+    export = bitbucket_converter.convert(issueResult.issueSummaries, issueResult.comments, idConverter)
 
     with zipfile.ZipFile(f'{args.repo}-issues.zip', 'w', compression=zipfile.ZIP_DEFLATED) as zip:
         zip.writestr(
