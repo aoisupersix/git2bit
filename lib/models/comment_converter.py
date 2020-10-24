@@ -11,7 +11,7 @@ def convert(gitbucketComment: GitbucketComment, idConverter: IdConverter) -> dic
     return {
         'content': gitbucketComment.payload.get('body'),
         'created_on': gitbucketComment.payload.get('created_at'),
-        'id': gitbucketComment.payload.get('number'),
+        'id': gitbucketComment.payload.get('id'),
         'issue': gitbucketComment.issueNo,
         'updated_on': gitbucketComment.payload.get('updated_at'),
         'user': {
