@@ -11,7 +11,8 @@
                 "--api-endpoint=endpoint",
                 "--owner=owner",
                 "--repo=repo",
-                "--token=token"
+                "--token=token",
+                "--write-apiresponse"
             ]
         }
     ]

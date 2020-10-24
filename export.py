@@ -24,9 +24,10 @@ def export():
         idConverter.loadMappingFromFilePath(args.mappingFilePath)
 
     issueResult = gitbucket.getIssueResult()
-    writeTmpFile(f'gitbucket_issues_{args.owner}-{args.repo}.json', issueResult.issueSummaries)
-    writeTmpFile(f'gitbucket_comments_{args.owner}-{args.repo}.json', issueResult.comments)
-    writeTmpFile(f'gitbucket_labels_{args.owner}-{args.repo}.json', issueResult.labels)
+    if (args.write_apiresponse):
+        writeTmpFile(f'gitbucket_issues_{args.owner}-{args.repo}.json', issueResult.issueSummaries)
+        writeTmpFile(f'gitbucket_comments_{args.owner}-{args.repo}.json', issueResult.comments)
+        writeTmpFile(f'gitbucket_labels_{args.owner}-{args.repo}.json', issueResult.labels)
 
     export = bitbucket_converter.convert(issueResult.issueSummaries, issueResult.comments, idConverter)
 
