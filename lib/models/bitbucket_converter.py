@@ -1,5 +1,6 @@
 from typing import List
 
+from lib.models import comment_converter
 from lib.models import GitbucketComment
 from lib.models import issue_converter
 from lib.models import IdConverter
@@ -11,7 +12,7 @@ def convert(issues: list, comments: List[GitbucketComment], idConverter: IdConve
     """
     return {
         'issues': [issue_converter.convert(issue, idConverter) for issue in issues],
-        'comments': comments,
+        'comments': [comment_converter.convert(comment, idConverter) for comment in comments],
         'attachments': [],
         'logs': [],  # これはGitbucketのAPIからは取得できないので空
         'meta': {

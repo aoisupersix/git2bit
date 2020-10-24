@@ -33,7 +33,7 @@ def export():
     labels = gitbucket.getLabels()
     writeData(f'gitbucket_labels_{args.gitbucket_owner}-{args.gitbucket_repo}.json', labels)
 
-    export = bitbucket_converter.convert(issues, [], idConverter)
+    export = bitbucket_converter.convert(issues, comments, idConverter)
 
     with zipfile.ZipFile(f'{args.gitbucket_repo}-issues.zip', 'w', compression=zipfile.ZIP_DEFLATED) as zip:
         zip.writestr(
