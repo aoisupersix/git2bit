@@ -1,3 +1,3 @@
-from .write_data import writeData
+from .write_tmpfile import writeTmpFile
 
-__all__ = ['writeData']
+__all__ = ['writeTmpFile']

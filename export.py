@@ -5,7 +5,7 @@ from lib.models import argument_parser as parser
 from lib.models import GitbucketApi
 from lib.models import IdConverter
 from lib.models import bitbucket_converter
-from lib.utils import writeData
+from lib.utils import writeTmpFile
 
 
 def export():
@@ -24,14 +24,14 @@ def export():
         idConverter.loadMappingFromFilePath(args.mappingFilePath)
 
     issues = sorted(gitbucket.getAllIssues(), key=lambda x: x['number'])  # チケット番号でソート
-    writeData(f'gitbucket_issues_{args.owner}-{args.repo}.json', issues)
+    writeTmpFile(f'gitbucket_issues_{args.owner}-{args.repo}.json', issues)
 
     issueNos = [issue['number'] for issue in issues]
     comments = gitbucket.getIssuesComments(issueNos)
-    writeData(f'gitbucket_comments_{args.owner}-{args.repo}.json', comments)
+    writeTmpFile(f'gitbucket_comments_{args.owner}-{args.repo}.json', comments)
 
     labels = gitbucket.getLabels()
-    writeData(f'gitbucket_labels_{args.owner}-{args.repo}.json', labels)
+    writeTmpFile(f'gitbucket_labels_{args.owner}-{args.repo}.json', labels)
 
     export = bitbucket_converter.convert(issues, comments, idConverter)
 
