@@ -1,8 +1,11 @@
+from typing import List
+
+from lib.models import GitbucketComment
 from lib.models import issue_converter
 from lib.models import IdConverter
 
 
-def convert(issues: list, comments: list, idConverter: IdConverter) -> dict:
+def convert(issues: list, comments: List[GitbucketComment], idConverter: IdConverter) -> dict:
     """
     Bitbucketにインポートできる形式に変換します
     """

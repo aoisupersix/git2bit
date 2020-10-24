@@ -1,4 +1,10 @@
 import requests
+from typing import NamedTuple, List
+
+
+class GitbucketComment(NamedTuple):
+    issueNo: int
+    payload: dict
 
 
 class GitbucketApi:
@@ -80,20 +86,22 @@ class GitbucketApi:
         response = self.__getRequestWithToken('labels')
         return response.json()
 
-    def getIssueComments(self, issueNo: int) -> list:
+    def getIssueComments(self, issueNo: int) -> List[GitbucketComment]:
         """
         引数に指定されたIssueの全コメントを取得します
         """
 
         response = self.__getRequestWithToken(f'issues/{issueNo}/comments')
-        return response.json()
+        issues = response.json()
+        issues = map(lambda i: GitbucketComment(issueNo=issueNo, payload=i), issues)
+        return issues
 
-    def getIssuesComments(self, issueNos: list) -> list:
+    def getIssuesComments(self, issueNos: list) -> List[GitbucketComment]:
         """
         引数に指定されたIssueの全コメントを取得します
         """
 
-        allComments = []
+        allComments: List[GitbucketComment] = []
         for issueNo in issueNos:
             allComments.extend(self.getIssueComments(issueNo))
 
