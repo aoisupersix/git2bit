@@ -13,4 +13,4 @@ coverage.xml
 launch.json
 
 # gitbucket download data
-data
+tmp
