@@ -31,7 +31,8 @@ def export():
 
     export = bitbucket_converter.convert(issueResult.issueSummaries, issueResult.comments, idConverter)
 
-    with zipfile.ZipFile(f'{args.repo}-issues.zip', 'w', compression=zipfile.ZIP_DEFLATED) as zip:
+    outputFilePath = args.output or f'{args.repo}-issues.zip'
+    with zipfile.ZipFile(outputFilePath, 'w', compression=zipfile.ZIP_DEFLATED) as zip:
         zip.writestr(
             'db-2.0.json',
             json.dumps(export, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': ')))

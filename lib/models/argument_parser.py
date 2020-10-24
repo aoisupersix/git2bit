@@ -14,6 +14,8 @@ def parse() -> argparse.Namespace:
                         help='Personal access token to access the Gitbucket API.')
     parser.add_argument('-m', '--mapping',
                         help='Path from Gitbucket to Bitbucket user id mapping definition file. (*.yml)')
+    parser.add_argument('--output',
+                        help='Output file path of Bitbucket Issue export data.')
     parser.add_argument('--write-apiresponse', action='store_true',
                         help='Write the Gitbucket API response in the ./tmp directory.')
 
