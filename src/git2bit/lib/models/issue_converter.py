@@ -1,6 +1,6 @@
 from typing import Union
 
-from lib.models import IdConverter
+from git2bit.lib.models import IdConverter
 
 
 def convert(gitbucketIssue: dict, idConverter: IdConverter) -> dict:

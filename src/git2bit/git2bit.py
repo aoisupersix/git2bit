@@ -1,11 +1,11 @@
 import json
 import zipfile
 
-from lib.models import argument_parser as parser
-from lib.models import GitbucketApi
-from lib.models import IdConverter
-from lib.models import bitbucket_converter
-from lib.utils import writeTmpFile
+from git2bit.lib.models import argument_parser as parser
+from git2bit.lib.models import GitbucketApi
+from git2bit.lib.models import IdConverter
+from git2bit.lib.models import bitbucket_converter
+from git2bit.lib.utils import writeTmpFile
 
 
 def export():

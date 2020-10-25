@@ -1,7 +1,7 @@
 import pytest
 
-from lib.models.issue_converter import convert
-from lib.models import IdConverter
+from src.git2bit.lib.models.issue_converter import convert
+from src.git2bit.lib.models import IdConverter
 
 
 @pytest.fixture

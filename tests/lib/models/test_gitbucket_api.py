@@ -2,7 +2,7 @@ import pytest
 from unittest.mock import MagicMock
 from pytest_mock.plugin import MockFixture
 
-from lib.models.gitbucket_api import GitbucketApi
+from src.git2bit.lib.models import GitbucketApi
 
 
 @pytest.fixture

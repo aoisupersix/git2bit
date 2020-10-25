@@ -1,5 +1,5 @@
-from lib.models import GitbucketComment
-from lib.models import IdConverter
+from git2bit.lib.models import GitbucketComment
+from git2bit.lib.models import IdConverter
 
 
 def convert(gitbucketComment: GitbucketComment, idConverter: IdConverter) -> dict:

@@ -1,7 +1,7 @@
 import pytest
 from pytest_mock.plugin import MockFixture
 
-from lib.models.argument_parser import parse, removeTrailingSlash
+from src.git2bit.lib.models.argument_parser import parse, removeTrailingSlash
 
 
 @pytest.fixture

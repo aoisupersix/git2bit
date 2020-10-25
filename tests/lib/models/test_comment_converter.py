@@ -1,8 +1,8 @@
 import pytest
 
-from lib.models.comment_converter import convert
-from lib.models import GitbucketComment
-from lib.models import IdConverter
+from src.git2bit.lib.models.comment_converter import convert
+from src.git2bit.lib.models import GitbucketComment
+from src.git2bit.lib.models import IdConverter
 
 
 @pytest.fixture

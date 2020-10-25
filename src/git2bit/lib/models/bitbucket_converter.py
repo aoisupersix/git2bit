@@ -1,9 +1,9 @@
 from typing import List
 
-from lib.models import comment_converter
-from lib.models import GitbucketComment
-from lib.models import issue_converter
-from lib.models import IdConverter
+import comment_converter
+import issue_converter
+from git2bit.lib.models import GitbucketComment
+from git2bit.lib.models import IdConverter
 
 
 def convert(issues: list, comments: List[GitbucketComment], idConverter: IdConverter) -> dict:
